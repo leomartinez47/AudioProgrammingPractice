@@ -8,23 +8,29 @@ CS3505, Assignment 2, Making a class.
 
 using namespace std;
 
-Sine::Sine(double amplitude, double wavelength, double angleIncrement) : 
+Sine::Sine(double amplitude, double frequency, double sampleRate, double duration) : 
   amplitude(amplitude),
-  wavelength(wavelength),
-  angleIncrement(angleIncrement),
-  angle(0) {}
+  frequency(frequency),
+  sampleRate(sampleRate),
+  duration(duration),
+  sampleIndex(0),
+  totalSamples(sampleRate * duration),
+  sampleIncrement(1 / (sampleRate * duration)) {}
 
-double Sine::currentAngle() {
-  return angle;
+double Sine::currentSampleIndex() {
+  return sampleIndex;
 }
 
-double Sine::currentHeight() {
-  return amplitude*sin(((2*M_PI*angle)/wavelength)); //HEIGHT = AMPLITUDE * sin((2piANGLE)/WAVELENGTH)
+double Sine::currentSampleValue() {
+  return amplitude*sin(((2*M_PI*frequency*sampleIndex)/sampleRate)); //SAMPLE = AMPLITUDE * sin(2π * FREQUENCY * INDEX / SAMPLERATE)
+}
 
+double Sine::getTotalSamples() {
+  return totalSamples;
 }
 
 Sine& Sine::operator++() {
-  angle += angleIncrement; 
+  sampleIndex += sampleIncrement; 
   return *this; 
 } 
 
@@ -35,6 +41,6 @@ Sine Sine::operator++(int) {
 } 
 
 ostream& operator<<(std::ostream& output, Sine sineCurve) {
-  output << sineCurve.currentAngle() << ", " << sineCurve.currentHeight();
+  output << sineCurve.currentSampleIndex() << ", " << sineCurve.currentSampleValue();
   return output;
 }

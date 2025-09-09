@@ -41,6 +41,6 @@ Sine Sine::operator++(int) {
 } 
 
 ostream& operator<<(std::ostream& output, Sine sineCurve) {
-  output << sineCurve.currentSampleIndex() << ", " << sineCurve.currentSampleValue();
+  output << sineCurve.currentSampleIndex()/sineCurve.getTotalSamples() << ", " << sineCurve.currentSampleValue();
   return output;
 }

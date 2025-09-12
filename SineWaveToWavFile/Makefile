@@ -1,11 +1,22 @@
+CC = g++
+
+testWav: main.o Sine.o Wav.o
+	$(CC) main.o Sine.o Wav.o -o testWav
+
 waveTest:	Sine.o sineTest.o
-	g++ Sine.o sineTest.o -o waveTest
+	$(CC) Sine.o sineTest.o -o waveTest
+
+main.o: main.cpp Sine.h Wav.h
+	$(CC) -c main.cpp
+
+Wav.o: Wav.cpp Wav.h
+	$(CC) -c Wav.cpp
 
 sineTest.o: sineTest.cpp Sine.h
-	g++ -c sineTest.cpp
+	$(CC) -c sineTest.cpp
 
 Sine.o:	Sine.cpp Sine.h
-	g++ -c Sine.cpp
+	$(CC) -c Sine.cpp
 
 clean: 
 	rm waveTest *.o

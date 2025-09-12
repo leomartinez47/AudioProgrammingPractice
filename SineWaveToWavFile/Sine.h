@@ -10,18 +10,9 @@ CS3505, Assignment 2, Making a class.
 ///        a duration in seconds, an index or current position, and a total samples value. 
 //         Sine Objects begin at index 0 and the index is incremented by 1/totalSamples using the ++ operator
 ///        in either a prefix or postfix manner.
-
-
-
-// rewrite to work in the format SAMPLE = AMPLITUDE * sin(2π * FREQUENCY * INDEX / SAMPLERATE)
-// where the sample index = angle, wavelength = samples per cycle or samplerate/frequency
-// height = audio sample value
 class Sine {
-
-  /// The amplitude, wavelength, angleIncrement, and angle variables for this sine curve.
   double amplitude, frequency, sampleRate, duration, sampleIndex, totalSamples, sampleIncrement;
   
-
 public:
   /// @brief Constructs a Sine object with an angle of 0.
   /// @param amplitude the amplitude of this sine wave.

@@ -10,7 +10,7 @@ Wav::Wav(int numChannels):
   {}
 
 void Wav::writeAsBytes(ofstream &file, int value, int byteSize) {
-  file.write(reinterpret_cast<const char*>(&value), byteSize);
+  file.write(reinterpret_cast<const char*>(&value), byteSize); // taken from tutorial https://www.youtube.com/watch?v=rHqkeLxAsTc
 }
 
 // right now this will take one sound wave and put it on one channel in a wav file
@@ -40,6 +40,7 @@ void Wav::writeFile(char* filename, double data[], double duration) {
 
     int startAudio = wav.tellp();
 
+    // write all of the sound data as 2 byte values
     for(int i = 0; i < sampleRate * duration; i++) {
       writeAsBytes(wav, data[i], 2);
     }

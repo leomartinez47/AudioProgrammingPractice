@@ -15,7 +15,7 @@ Sine::Sine(double amplitude, double frequency, double sampleRate, double duratio
   duration(duration),
   sampleIndex(0),
   totalSamples(sampleRate * duration),
-  sampleIncrement(1 / (sampleRate * duration)) {}
+  sampleIncrement(1) {}
 
 double Sine::currentSampleIndex() {
   return sampleIndex;
@@ -27,6 +27,10 @@ double Sine::currentSampleValue() {
 
 double Sine::getTotalSamples() {
   return totalSamples;
+}
+
+double Sine::getDuration() {
+  return duration;
 }
 
 Sine& Sine::operator++() {

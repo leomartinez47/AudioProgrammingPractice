@@ -36,8 +36,11 @@ public:
   /// @return the current sample value of this sine wave at the current index.
   double currentSampleValue();
 
-  /// @return the total number of samples of this sine wave
+  /// @return the total number of samples of this sine wave.
   double getTotalSamples();
+
+  /// @return the duration of this wave in seconds.
+  double getDuration();
 
   /// @brief Increments the sampleIndex of this sine curve by the sampleIncrement (1/totalSamples) in a prefix fashion.
   /// @return a reference to this sine curve after incrementing its angle.

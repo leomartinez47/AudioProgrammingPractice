@@ -1,7 +1,4 @@
-/*
-Leo Martinez, 
-CS3505, Assignment 2, Making a class.
-*/
+/* Leo Martinez */
 #include "Sine.h"
 #include <iostream>
 #include <cmath>

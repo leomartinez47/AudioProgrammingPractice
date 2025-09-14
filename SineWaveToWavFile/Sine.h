@@ -1,7 +1,4 @@
-/*
-Leo Martinez, 
-CS3505, Assignment 2, Making a class.
-*/
+/* Leo Martinez */
 #ifndef SINE_H
 #define SINE_H
 #include <iostream>

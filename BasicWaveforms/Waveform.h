@@ -6,8 +6,16 @@
 /// @brief This class represents a synthesized sound wave that represents any one of the 
 ///        four basic waveforms: sine, square, triangle, and sawtooth waves.
 class Waveform{
-  char* form; // either sine, square, triangle, or saw
+  // an enum to represent the four possible waveforms this class will represent
+  enum Form {
+    SINE,
+    SQUARE,
+    SAW,
+    TRIANGLE
+  };
+
   double amplitude, frequency, sampleRate, duration, sampleIndex, totalSamples, sampleIncrement;
+  Form form;
 
 public:
 
@@ -17,7 +25,7 @@ public:
   /// @param sampleRate the number of sample per second of this sine wave.
   /// @param duration the duration of this sine wave in seconds.
   /// @param form the waveform that this object represents.
-  Waveform(char* form, double amplitude, double frequency, double sampleRate, double duration);
+  Waveform(const char* waveform, double amplitude, double frequency, double sampleRate, double duration);
 
   /// @return The current sample index of this wave, essentially the x position if visualized.
   double currentSampleIndex();

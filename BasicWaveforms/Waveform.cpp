@@ -36,3 +36,77 @@
 
 //     buffer[n] = sample;
 //}
+
+
+
+/*
+Leo Martinez
+*/
+#include "Waveform.h"
+#include <iostream>
+#include <map>
+#include <cmath>
+
+using namespace std;
+
+Waveform::Waveform(const char* waveform, double amplitude, double frequency, double sampleRate, double duration) : 
+  amplitude(amplitude),
+  frequency(frequency),
+  sampleRate(sampleRate),
+  duration(duration),
+  sampleIndex(0),
+  totalSamples(sampleRate * duration),
+  sampleIncrement(1) {
+    // creates a map to set a c style string mapped to a type of the Form enum
+    std::map<const char*, Form> formMap = {
+      {"sine", SINE},
+      {"square", SQUARE},
+      {"saw", SAW},
+      {"triangle", TRIANGLE}
+    };
+    // sets the form member appropriately, this is assuming confirming a correct waveform input in main
+    form = formMap[waveform];
+  }
+
+double Waveform::currentSampleIndex() {
+  return sampleIndex;
+}
+
+/// RETURN THE RIGHT CALCULATION BASED OFF OF FORM MEMBER
+double Waveform::currentSampleValue() { 
+  switch(form) {
+    case SINE: // SINE WAVE - SAMPLE[INDEX] = AMPLITUDE * sin(2π * FREQUENCY * INDEX / SAMPLERATE)
+      return amplitude*sin(((2*M_PI*frequency*sampleIndex)/sampleRate)); 
+      break;
+    case SQUARE: // SQUARE WAVE - see above
+      break;
+    case SAW: // SAW WAVE - sample[sampleindex] = (ampltitude) * (2((f * sampleindex/samplerate) % 1) - 1)
+      break;
+    case TRIANGLE: // TRIANGLE WAVE - see above
+      break;
+  }
+}
+
+double Waveform::getTotalSamples() {
+  return totalSamples;
+}
+
+double Waveform::getDuration() {
+  return duration;
+}
+
+Waveform& Waveform::operator++() {
+  sampleIndex += sampleIncrement; 
+  return *this; 
+} 
+
+Waveform Waveform::operator++(int) {
+  Waveform result(*this);   //make a copy for the result using a reference to this sine curve
+  ++(*this);  //use the prefix ++ to increment the current Sine
+  return result;  //return the old version
+} 
+
+ostream& operator<<(std::ostream& output, Waveform wave) {
+  output << wave.currentSampleIndex()/wave.getTotalSamples() << ", " << wave.currentSampleValue();
+  return output;
+}

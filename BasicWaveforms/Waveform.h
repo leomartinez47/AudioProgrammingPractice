@@ -17,6 +17,8 @@ class Waveform{
   double amplitude, frequency, sampleRate, duration, sampleIndex, totalSamples, sampleIncrement;
   Form form;
 
+  int sign(double val);
+
 public:
 
   /// @brief Constructs a Sine object with an angle of 0.

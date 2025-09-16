@@ -37,6 +37,8 @@
 //     buffer[n] = sample;
 //}
 
+//for now im doing my way but imma consider the phase way if i ever wanna be more efficient and also lowk functional
+
 
 
 /*
@@ -58,14 +60,14 @@ Waveform::Waveform(const char* waveform, double amplitude, double frequency, dou
   totalSamples(sampleRate * duration),
   sampleIncrement(1) {
     // creates a map to set a c style string mapped to a type of the Form enum
-    std::map<const char*, Form> formMap = {
+    std::map<string, Form> formMap = {
       {"sine", SINE},
       {"square", SQUARE},
       {"saw", SAW},
       {"triangle", TRIANGLE}
     };
     // sets the form member appropriately, this is assuming confirming a correct waveform input in main
-    form = formMap[waveform];
+    form = formMap[string(waveform)];
   }
 
 double Waveform::currentSampleIndex() {
@@ -78,13 +80,20 @@ double Waveform::currentSampleValue() {
     case SINE: // SINE WAVE - SAMPLE[INDEX] = AMPLITUDE * sin(2π * FREQUENCY * INDEX / SAMPLERATE)
       return amplitude*sin(((2*M_PI*frequency*sampleIndex)/sampleRate)); 
       break;
-    case SQUARE: // SQUARE WAVE - see above
+    case SQUARE: 
+      // sample = AMPLITUDE * sgn(sin(2pi*f*t)) f = frequency (htz) t = time (secs)
+      return amplitude * sign(sin(2*M_PI*frequency*sampleIndex/sampleRate));
       break;
-    case SAW: // SAW WAVE - sample[sampleindex] = (ampltitude) * (2((f * sampleindex/samplerate) % 1) - 1)
+    case SAW: 
+      // sample[sampleindex] = (ampltitude) * (2((f * sampleindex/samplerate) % 1) - 1)
+      return amplitude * (2 * (fmod(frequency * sampleIndex / sampleRate, 1.0)) - 1);
       break;
-    case TRIANGLE: // TRIANGLE WAVE - see above
+    case TRIANGLE:
+      // sample = 4 |ft - [ft + 1/2]| - 1  f = frequency (htz) t = time (secs)
+      return 4 * fabs(frequency * sampleIndex/sampleRate - (frequency * sampleIndex/sampleRate + 1/2) - 1); 
       break;
   }
+  return 0;
 }
 
 double Waveform::getTotalSamples() {
@@ -109,4 +118,12 @@ Waveform Waveform::operator++(int) {
 ostream& operator<<(std::ostream& output, Waveform wave) {
   output << wave.currentSampleIndex()/wave.getTotalSamples() << ", " << wave.currentSampleValue();
   return output;
+}
+
+int Waveform::sign(double val) {
+  if(val > 0)
+    return 1;
+  else if(val < 0)
+    return -1;
+  else return 0;
 }

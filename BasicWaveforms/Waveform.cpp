@@ -90,6 +90,7 @@ double Waveform::currentSampleValue() {
       break;
     case TRIANGLE:
       // sample = 4 |ft - [ft + 1/2]| - 1  f = frequency (htz) t = time (secs)
+      // only ever returning 4 so the fabs shit must always be 1 for some reason
       return 4 * fabs(frequency * sampleIndex/sampleRate - (frequency * sampleIndex/sampleRate + 1/2) - 1); 
       break;
   }

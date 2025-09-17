@@ -82,7 +82,7 @@ double Waveform::currentSampleValue() {
       break;
     case SQUARE: 
       // sample = AMPLITUDE * sgn(sin(2pi*f*t)) f = frequency (htz) t = time (secs)
-      return amplitude * sign(sin(2*M_PI*frequency*sampleIndex/sampleRate));
+      return amplitude*sign(sin(2*M_PI*frequency*sampleIndex/sampleRate));
       break;
     case SAW: 
       // sample[sampleindex] = (ampltitude) * (2((f * sampleindex/samplerate) % 1) - 1)

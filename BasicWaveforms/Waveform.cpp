@@ -91,7 +91,11 @@ double Waveform::currentSampleValue() {
     case TRIANGLE:
       // sample = 4 |ft - [ft + 1/2]| - 1  f = frequency (htz) t = time (secs)
       // only ever returning 4 so the fabs shit must always be 1 for some reason
-      return 4 * fabs(frequency * sampleIndex/sampleRate - (frequency * sampleIndex/sampleRate + 1/2) - 1); 
+      // the wikipedia definition of a triangle wave, where period = samplerate/frequency
+      double period = sampleRate / frequency;
+      double phase = fmod(sampleIndex / period + 0.75, 1.0);
+      return 4 * amplitude * fabs(phase - 0.5) - amplitude;
+      //return (4 * amplitude / (sampleRate / frequency)) * fabs(fmod(sampleIndex - (sampleRate / frequency * 4), sampleRate / frequency) - sampleRate / 2 * frequency) - amplitude;
       break;
   }
   return 0;

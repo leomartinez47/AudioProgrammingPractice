@@ -41,6 +41,9 @@ public:
   /// @return the duration of this wave in seconds.
   double getDuration();
 
+  /// @brief returns current sample and increments sampleIndex
+  float nextSample();
+
   /// @brief Increments the sampleIndex of this wave by the sampleIncrement (1/totalSamples) in a prefix fashion.
   /// @return a reference to this sine curve after incrementing its angle.
   Waveform& operator++();

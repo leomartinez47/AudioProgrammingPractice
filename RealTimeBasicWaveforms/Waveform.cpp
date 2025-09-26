@@ -1,6 +1,4 @@
-/*
-Leo Martinez
-*/
+/* Leo Martinez */
 #include "Waveform.h"
 #include <iostream>
 #include <map>
@@ -64,6 +62,12 @@ double Waveform::getTotalSamples() {
 
 double Waveform::getDuration() {
   return duration;
+}
+
+float Waveform::nextSample() {
+  float value = currentSampleValue();
+  ++(*this);
+  return value;
 }
 
 Waveform& Waveform::operator++() {

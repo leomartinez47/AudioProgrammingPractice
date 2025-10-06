@@ -21,11 +21,15 @@ static int callback(const void *inputBuffer, void *outputBuffer, unsigned long f
 }
 
 int main() {
-  PaHostApiIndex apiIndex = Pa_HostApiTypeIdToHostApiIndex(paALSA);
-  const PaHostApiInfo* hostApiInfo = Pa_GetHostApiInfo(apiIndex);
+  Pa_Initialize();
 
   PaStreamParameters outputParams;
-  outputParams.device = hostApiInfo->defaultOutputDevice; // this is the correct index
+  outputParams.device = Pa_GetDefaultOutputDevice();
+  if (outputParams.device == paNoDevice) {
+      fprintf(stderr, "Error: No default output device.\n");
+      return 1;
+  }
+
   outputParams.channelCount = 1;
   outputParams.sampleFormat = paFloat32;
   outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultLowOutputLatency;

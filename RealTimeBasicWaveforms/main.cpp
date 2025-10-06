@@ -24,26 +24,13 @@ static int callback(const void *inputBuffer, void *outputBuffer, unsigned long f
   return 0;
 }
 
+/// @brief Takes in a waveform and a frequency as command line arguments and
+/// synthesizes the appropriate waveform and plays it in real time.
 int main(int argc, char* argv[]) {
   if(argc < 3) {
-    cout << "please enter a waveform and a frequency";
+    cout << "Error: please provide a waveform and a frequency at runtime";
     return 0;
   }
-  // Pa_Initialize();
-
-  // PaStreamParameters outputParams;
-  // outputParams.device = Pa_GetDefaultOutputDevice();
-  // if (outputParams.device == paNoDevice) {
-  //     fprintf(stderr, "Error: No default output device.\n");
-  //     return 1;
-  // }
-
-  // outputParams.channelCount = 1;
-  // outputParams.sampleFormat = paFloat32;
-  // outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultLowOutputLatency;
-  // outputParams.hostApiSpecificStreamInfo = nullptr;
-
-
 
   Waveform waveData(argv[1], 0.5, stod(argv[2]), SAMPLE_RATE, 5);
   Pa_Initialize();

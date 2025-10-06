@@ -1,6 +1,10 @@
 /* Leo Martinez */
 #include "Waveform.h"
 #include "portaudio.h"
+#include <iostream>
+
+using std::cout;
+using std::stod;
 
 const int SAMPLE_RATE = 44100;
 
@@ -20,24 +24,28 @@ static int callback(const void *inputBuffer, void *outputBuffer, unsigned long f
   return 0;
 }
 
-int main() {
-  Pa_Initialize();
-
-  PaStreamParameters outputParams;
-  outputParams.device = Pa_GetDefaultOutputDevice();
-  if (outputParams.device == paNoDevice) {
-      fprintf(stderr, "Error: No default output device.\n");
-      return 1;
+int main(int argc, char* argv[]) {
+  if(argc < 3) {
+    cout << "please enter a waveform and a frequency";
+    return 0;
   }
+  // Pa_Initialize();
 
-  outputParams.channelCount = 1;
-  outputParams.sampleFormat = paFloat32;
-  outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultLowOutputLatency;
-  outputParams.hostApiSpecificStreamInfo = nullptr;
+  // PaStreamParameters outputParams;
+  // outputParams.device = Pa_GetDefaultOutputDevice();
+  // if (outputParams.device == paNoDevice) {
+  //     fprintf(stderr, "Error: No default output device.\n");
+  //     return 1;
+  // }
+
+  // outputParams.channelCount = 1;
+  // outputParams.sampleFormat = paFloat32;
+  // outputParams.suggestedLatency = Pa_GetDeviceInfo(outputParams.device)->defaultLowOutputLatency;
+  // outputParams.hostApiSpecificStreamInfo = nullptr;
 
 
 
-  Waveform waveData("sine", 0.5, 440, SAMPLE_RATE, 5);
+  Waveform waveData(argv[1], 0.5, stod(argv[2]), SAMPLE_RATE, 5);
   Pa_Initialize();
   PaStream *stream;
   Pa_OpenDefaultStream(&stream, 0, 1, paFloat32, SAMPLE_RATE, 256, callback, &waveData);

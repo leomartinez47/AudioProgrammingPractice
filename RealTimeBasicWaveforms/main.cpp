@@ -27,12 +27,12 @@ static int callback(const void *inputBuffer, void *outputBuffer, unsigned long f
 /// @brief Takes in a waveform and a frequency as command line arguments and
 /// synthesizes the appropriate waveform and plays it in real time.
 int main(int argc, char* argv[]) {
-  if(argc < 3) {
-    cout << "Error: please provide a waveform and a frequency at runtime";
+  if(argc < 4) {
+    cout << "Error: please provide a waveform, a frequency, and a duration at runtime";
     return 0;
   }
 
-  Waveform waveData(argv[1], 0.5, stod(argv[2]), SAMPLE_RATE, 5);
+  Waveform waveData(argv[1], 0.5, stod(argv[2]), SAMPLE_RATE, stod(argv[3]));
   Pa_Initialize();
   PaStream *stream;
   Pa_OpenDefaultStream(&stream, 0, 1, paFloat32, SAMPLE_RATE, 256, callback, &waveData);

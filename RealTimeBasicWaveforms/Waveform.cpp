@@ -2,6 +2,7 @@
 #include "Waveform.h"
 #include <iostream>
 #include <map>
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 using namespace std;

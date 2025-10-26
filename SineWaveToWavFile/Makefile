@@ -19,4 +19,4 @@ Sine.o:	Sine.cpp Sine.h
 	$(CC) -c Sine.cpp
 
 clean: 
-	rm waveTest *.o
+	rm testWav *.o

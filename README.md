@@ -12,3 +12,5 @@ Using the Waveform class and the portaudio library I built RealTimeBasicWaveform
 command-line input and play it back at runtime which in my head is real time.
 
 In the future I want to build on these ideas even further and create a larger synthesizer application, but baby steps.
+
+Feeling ready to start learning how to make audio plugins with the JUCE framework.
